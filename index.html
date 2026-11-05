@@ -38,6 +38,7 @@
     align-items: center;
     padding: 16px 12px 40px;
     line-height: 1.75;
+    user-select: none;
   }
 
   .app-container {
@@ -50,12 +51,15 @@
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65), inset 0 0 32px rgba(139, 98, 52, 0.15);
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 82vh;
   }
 
   .top-header {
     background: linear-gradient(90deg, #5e1410 0%, var(--palace-red) 50%, #5e1410 100%);
     color: var(--text-light);
-    padding: 16px 20px;
+    padding: 15px 20px;
     border-bottom: 2px solid var(--gold);
     display: flex;
     justify-content: space-between;
@@ -65,14 +69,14 @@
   }
 
   .title-group h1 {
-    font-size: 1.25rem;
+    font-size: 1.22rem;
     letter-spacing: 1.5px;
     color: #faeed7;
     font-weight: 700;
   }
 
   .title-group p {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--gold-light);
     letter-spacing: 1px;
     margin-top: 2px;
@@ -81,6 +85,7 @@
   .header-actions {
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
   }
 
   .btn-top {
@@ -106,8 +111,8 @@
     padding: 10px 20px;
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 20px;
-    font-size: 0.84rem;
+    gap: 10px 18px;
+    font-size: 0.83rem;
     color: var(--ink-muted);
     align-items: center;
   }
@@ -128,7 +133,7 @@
     background: rgba(140, 34, 28, 0.12);
     border: 1px solid var(--palace-red);
     color: var(--palace-red);
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     padding: 1px 8px;
     border-radius: 3px;
     margin-right: 4px;
@@ -142,7 +147,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     overflow-x: auto;
   }
 
@@ -189,7 +194,19 @@
   }
 
   .stage-body {
-    padding: 26px 24px 30px;
+    padding: 24px 24px 20px;
+    flex: 1;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .act-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .act-tag {
@@ -197,53 +214,70 @@
     background: var(--palace-red);
     color: #fff;
     padding: 3px 12px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     letter-spacing: 1.5px;
     border-radius: 3px;
-    margin-bottom: 10px;
+  }
+
+  .step-counter {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    background: rgba(197, 155, 82, 0.18);
+    border: 1px solid rgba(197, 155, 82, 0.45);
+    padding: 2px 10px;
+    border-radius: 12px;
   }
 
   .scene-title {
-    font-size: 1.45rem;
+    font-size: 1.38rem;
     color: var(--ink);
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     border-left: 4px solid var(--palace-red);
     padding-left: 12px;
     line-height: 1.35;
   }
 
+  /* 渐进动画 */
+  @keyframes blockFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .story-block {
+    animation: blockFadeIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    margin-bottom: 16px;
+  }
+
   .history-box {
-    background: rgba(229, 215, 190, 0.65);
+    background: rgba(229, 215, 190, 0.72);
     border: 1px solid #cbb99e;
-    border-left: 3px solid var(--gold);
-    padding: 12px 16px;
-    border-radius: 4px;
-    font-size: 0.92rem;
+    border-left: 3.5px solid var(--gold);
+    padding: 13px 16px;
+    border-radius: 5px;
+    font-size: 0.93rem;
     color: #3d3128;
-    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
 
   .history-box strong {
     color: var(--palace-red);
   }
 
-  .narrative-text {
-    font-size: 1.02rem;
+  .narrative-p {
+    font-size: 1.03rem;
     color: var(--ink);
-    margin-bottom: 18px;
     text-align: justify;
-  }
-
-  .narrative-text p {
-    margin-bottom: 12px;
     text-indent: 2em;
-  }
-
-  .dialogue-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 20px 0;
+    background: rgba(255, 252, 245, 0.45);
+    padding: 10px 14px;
+    border-radius: 5px;
+    border-left: 2px solid rgba(197, 155, 82, 0.35);
   }
 
   .dialogue-card {
@@ -252,7 +286,7 @@
     border-radius: 6px;
     padding: 14px 16px;
     position: relative;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
 
   .dialogue-card.left-side {
@@ -265,12 +299,14 @@
 
   .speaker-name {
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.96rem;
     color: var(--palace-red);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .dialogue-card.right-side .speaker-name {
@@ -284,26 +320,87 @@
   }
 
   .speaker-words {
-    font-size: 0.96rem;
+    font-size: 0.97rem;
     color: var(--ink);
+    line-height: 1.8;
   }
 
   .pov-banner {
-    background: linear-gradient(90deg, rgba(140, 34, 28, 0.1) 0%, transparent 100%);
+    background: linear-gradient(90deg, rgba(140, 34, 28, 0.12) 0%, transparent 100%);
     border-top: 1px solid rgba(140, 34, 28, 0.3);
     border-bottom: 1px solid rgba(140, 34, 28, 0.3);
     padding: 8px 14px;
-    margin-bottom: 16px;
     font-weight: 700;
     color: var(--palace-red);
     font-size: 0.92rem;
     letter-spacing: 0.5px;
   }
 
+  /* 点击继续互动条 */
+  .next-step-bar {
+    margin-top: 22px;
+    padding: 14px 18px;
+    background: linear-gradient(90deg, rgba(140, 34, 28, 0.08) 0%, rgba(197, 155, 82, 0.18) 50%, rgba(140, 34, 28, 0.08) 100%);
+    border: 1.5px dashed var(--palace-red);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    animation: pulseBorder 2s infinite;
+  }
+
+  .next-step-bar:hover {
+    background: rgba(140, 34, 28, 0.14);
+    transform: translateY(-1px);
+  }
+
+  @keyframes pulseBorder {
+    0%, 100% { border-color: rgba(140, 34, 28, 0.75); }
+    50% { border-color: rgba(197, 155, 82, 0.9); }
+  }
+
+  .next-hint-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--palace-red);
+    font-weight: 700;
+    font-size: 0.94rem;
+  }
+
+  .next-arrow {
+    display: inline-block;
+    animation: bounceRight 1.1s infinite;
+  }
+
+  @keyframes bounceRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+
+  .skip-scene-btn {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid #bfa888;
+    color: var(--ink-muted);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.76rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .skip-scene-btn:hover {
+    border-color: var(--palace-red);
+    color: var(--palace-red);
+  }
+
   .choices-section {
-    margin-top: 24px;
+    margin-top: 22px;
     border-top: 1px dashed #c4b299;
     padding-top: 18px;
+    cursor: default;
   }
 
   .choices-prompt {
@@ -356,9 +453,10 @@
     border: 2px double var(--palace-red);
     border-radius: 8px;
     padding: 24px 20px;
-    margin-top: 16px;
+    margin-top: 12px;
     position: relative;
     text-align: center;
+    cursor: default;
   }
 
   .ending-seal {
@@ -374,7 +472,7 @@
   }
 
   .ending-title {
-    font-size: 1.55rem;
+    font-size: 1.52rem;
     color: var(--palace-red);
     margin-bottom: 16px;
     letter-spacing: 2px;
@@ -467,12 +565,28 @@
     background: #ebe0cb;
   }
 
+  /* 眨眼光标 */
+  .typing-cursor {
+    display: inline-block;
+    width: 7px;
+    height: 1.05em;
+    background-color: var(--palace-red);
+    vertical-align: text-bottom;
+    margin-left: 3px;
+    animation: blinkCursor 0.75s infinite;
+  }
+
+  @keyframes blinkCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
   @media (max-width: 600px) {
     .stage-body {
       padding: 18px 15px 24px;
     }
     .scene-title {
-      font-size: 1.22rem;
+      font-size: 1.2rem;
     }
   }
 </style>
@@ -483,9 +597,10 @@
   <header class="top-header">
     <div class="title-group">
       <h1>档案里的故宫南迁：万里典守录</h1>
-      <p>1933—1949 · 第一人称历史亲历 · 多分支互动文游</p>
+      <p>1933—1949 · 逐段沉浸推演 · 多分支互动文游</p>
     </div>
     <div class="header-actions">
+      <button class="btn-top" id="btnBackStep" style="display:none;">返回上一幕</button>
       <button class="btn-top" id="btnArchive">典守结局录 (<span id="unlockCount">0</span>/5)</button>
       <button class="btn-top" id="btnRestart">重返1933</button>
     </div>
@@ -520,10 +635,10 @@
     <div class="step-node" data-step="4"><span class="step-dot"></span>四幕·胜利东归与终局</div>
   </div>
 
-  <main class="stage-body" id="stageBody"></main>
+  <main class="stage-body" id="stageBody" title="点击空白处或底部按钮推进剧情"></main>
 
   <footer class="footer-note">
-    史料依据：故宫博物院官网《故宫文物南迁史料展》专题 & 《文物西迁》官方词条 · 余砚为月月制作
+    提示：轻点画面或按【空格键】可逐段推进剧情与人物对话 · 余砚为月月制作
   </footer>
 </div>
 
@@ -990,18 +1105,70 @@ const SCENES = {
 
 let gameState = {
   currentScene: "act1_main",
+  revealIndex: 1, // 当前已揭示到第几个内容块（从1开始，1代表第一段，点一下加1）
   badges: ["文渊阁四库清册"],
   flags: {},
-  unlockedEndings: []
+  unlockedEndings: [],
+  historyStack: []
 };
+
+let typingTimer = null;
+let isTyping = false;
+let currentFullText = "";
+let currentTypingTarget = null;
+
+// 把当前场景拆解成顺序出现的独立段落块（blocks）
+function getSceneBlocks(scene) {
+  const blocks = [];
+  if (scene.povBanner) {
+    blocks.push({ type: "povBanner", html: scene.povBanner });
+  }
+  if (scene.history) {
+    blocks.push({ type: "history", html: scene.history });
+  }
+  if (scene.paragraphs && scene.paragraphs.length) {
+    scene.paragraphs.forEach(p => {
+      blocks.push({ type: "paragraph", text: p });
+    });
+  }
+  if (scene.dialogues && scene.dialogues.length) {
+    scene.dialogues.forEach(d => {
+      blocks.push({
+        type: "dialogue",
+        side: d.side,
+        speaker: d.speaker,
+        desc: d.desc,
+        words: d.words
+      });
+    });
+  }
+  if (!scene.isEnding && scene.choices && scene.choices.length) {
+    blocks.push({
+      type: "choices",
+      prompt: scene.prompt,
+      choices: scene.choices
+    });
+  }
+  return blocks;
+}
 
 async function loadSavedState() {
   try {
-    const local = localStorage.getItem("PALACE_SOUTH_MIGRATION_STATE_V1");
+    if (window.PolarisRoom && typeof window.PolarisRoom.whenReady === "function") {
+      await window.PolarisRoom.whenReady();
+      const roomState = window.PolarisRoom.getState();
+      if (roomState && roomState.currentScene) {
+        gameState = Object.assign(gameState, roomState);
+        if (!gameState.revealIndex || gameState.revealIndex < 1) gameState.revealIndex = 1;
+        return;
+      }
+    }
+    const local = localStorage.getItem("PALACE_SOUTH_MIGRATION_STATE_V2");
     if (local) {
       const parsed = JSON.parse(local);
       if (parsed && parsed.currentScene) {
-        gameState = parsed;
+        gameState = Object.assign(gameState, parsed);
+        if (!gameState.revealIndex || gameState.revealIndex < 1) gameState.revealIndex = 1;
       }
     }
   } catch (e) {
@@ -1011,7 +1178,10 @@ async function loadSavedState() {
 
 function saveState() {
   try {
-    localStorage.setItem("PALACE_SOUTH_MIGRATION_STATE_V1", JSON.stringify(gameState));
+    if (window.PolarisRoom && typeof window.PolarisRoom.patchState === "function") {
+      window.PolarisRoom.patchState(gameState);
+    }
+    localStorage.setItem("PALACE_SOUTH_MIGRATION_STATE_V2", JSON.stringify(gameState));
   } catch (e) {
     console.warn("State save warning:", e);
   }
@@ -1027,7 +1197,38 @@ function renderProgress(step) {
   });
 }
 
-function renderScene() {
+function stopTypingImmediately() {
+  if (typingTimer) {
+    clearInterval(typingTimer);
+    typingTimer = null;
+  }
+  if (isTyping && currentTypingTarget) {
+    currentTypingTarget.innerHTML = currentFullText;
+  }
+  isTyping = false;
+  currentTypingTarget = null;
+}
+
+function startTypewriter(element, rawText) {
+  stopTypingImmediately();
+  isTyping = true;
+  currentFullText = rawText;
+  currentTypingTarget = element;
+  let idx = 0;
+  element.innerHTML = `<span class="typing-cursor"></span>`;
+  typingTimer = setInterval(() => {
+    idx += 2;
+    if (idx >= rawText.length) {
+      element.innerHTML = rawText;
+      stopTypingImmediately();
+    } else {
+      element.innerHTML = rawText.slice(0, idx) + `<span class="typing-cursor"></span>`;
+    }
+  }, 22);
+}
+
+function renderScene(animateLatest = true) {
+  stopTypingImmediately();
   const scene = SCENES[gameState.currentScene] || SCENES.act1_main;
 
   if (scene.isEnding && scene.endingId) {
@@ -1042,98 +1243,229 @@ function renderScene() {
   document.getElementById("uiPov").textContent = scene.pov || "";
   document.getElementById("unlockCount").textContent = gameState.unlockedEndings.length;
 
+  const btnBack = document.getElementById("btnBackStep");
+  btnBack.style.display = (gameState.historyStack && gameState.historyStack.length > 0) ? "inline-block" : "none";
+
   const badgeHtml = gameState.badges.map(b => `<span class="badge-pill">${b}</span>`).join("");
   document.getElementById("uiBadges").innerHTML = badgeHtml;
 
   renderProgress(scene.step || 1);
 
   const stage = document.getElementById("stageBody");
-  let html = `<div class="act-tag">${scene.actTag}</div>`;
 
+  // 结局画面同样支持逐段显现
   if (scene.isEnding) {
-    html += `
+    const totalEndBlocks = scene.paragraphs.length + 1;
+    if (gameState.revealIndex > totalEndBlocks) gameState.revealIndex = totalEndBlocks;
+
+    let html = `
+      <div class="act-header-row">
+        <div class="act-tag">${scene.actTag}</div>
+        <div class="step-counter">终章进度 ${gameState.revealIndex} / ${totalEndBlocks}</div>
+      </div>
       <div class="ending-card">
         <div class="ending-seal">${scene.seal}</div>
         <h2 class="ending-title">${scene.title}</h2>
-        <div class="ending-body">
-          ${scene.paragraphs.map(p => `<p style="margin-bottom:12px;text-indent:2em;">${p}</p>`).join("")}
+        <div class="ending-body" id="endingBodyContainer">
+    `;
+
+    const visibleParas = scene.paragraphs.slice(0, Math.min(gameState.revealIndex, scene.paragraphs.length));
+    visibleParas.forEach((p, i) => {
+      const isLastRevealed = (i === visibleParas.length - 1) && (gameState.revealIndex <= scene.paragraphs.length);
+      html += `<p class="story-block" id="${isLastRevealed ? 'latestTypingNode' : ''}" style="margin-bottom:14px;text-indent:2em;">${isLastRevealed && animateLatest ? '' : p}</p>`;
+    });
+
+    html += `</div>`;
+
+    if (gameState.revealIndex < totalEndBlocks) {
+      html += `
+        <div class="next-step-bar" onclick="advanceStep(event)">
+          <div class="next-hint-left">
+            <span>轻点此处或按空格键 · 继续展读终章档案（${gameState.revealIndex}/${totalEndBlocks}）</span>
+            <span class="next-arrow">▸</span>
+          </div>
         </div>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
-          <button class="choice-btn" style="max-width:260px;text-align:center;margin:0;" onclick="restartGame()">
+      `;
+    } else {
+      html += `
+        <div class="story-block" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+          <button class="choice-btn" style="max-width:250px;text-align:center;margin:0;" onclick="restartGame(event)">
             <span class="choice-tag">再启尘封档案</span>重新踏上1933护宝之路
           </button>
-          <button class="choice-btn" style="max-width:260px;text-align:center;margin:0;" onclick="openArchiveModal()">
+          <button class="choice-btn" style="max-width:250px;text-align:center;margin:0;" onclick="openArchiveModal(event)">
             <span class="choice-tag">查阅结局全录</span>已点亮 ${gameState.unlockedEndings.length} / 5 个历史结局
           </button>
         </div>
-      </div>
-    `;
+      `;
+    }
+
+    html += `</div>`;
     stage.innerHTML = html;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (animateLatest && gameState.revealIndex <= scene.paragraphs.length) {
+      const target = document.getElementById("latestTypingNode");
+      if (target) {
+        startTypewriter(target, scene.paragraphs[gameState.revealIndex - 1]);
+      }
+    }
     return;
   }
 
-  html += `<h2 class="scene-title">${scene.title}</h2>`;
-
-  if (scene.povBanner) {
-    html += `<div class="pov-banner">${scene.povBanner}</div>`;
+  // 普通章节逐段渲染
+  const blocks = getSceneBlocks(scene);
+  const totalBlocks = blocks.length;
+  if (gameState.revealIndex > totalBlocks) {
+    gameState.revealIndex = totalBlocks;
   }
 
-  if (scene.history) {
-    html += `<div class="history-box">${scene.history}</div>`;
-  }
+  let html = `
+    <div class="act-header-row">
+      <div class="act-tag">${scene.actTag}</div>
+      <div class="step-counter">剧情推进 ${gameState.revealIndex} / ${totalBlocks}</div>
+    </div>
+    <h2 class="scene-title">${scene.title}</h2>
+    <div id="blocksContainer">
+  `;
 
-  if (scene.paragraphs && scene.paragraphs.length) {
-    html += `<div class="narrative-text">${scene.paragraphs.map(p => `<p>${p}</p>`).join("")}</div>`;
-  }
+  let latestTypingText = null;
 
-  if (scene.dialogues && scene.dialogues.length) {
-    html += `<div class="dialogue-list">`;
-    scene.dialogues.forEach(d => {
+  for (let i = 0; i < gameState.revealIndex; i++) {
+    const b = blocks[i];
+    const isLatest = (i === gameState.revealIndex - 1);
+
+    if (b.type === "povBanner") {
+      html += `<div class="story-block pov-banner">${b.html}</div>`;
+    } else if (b.type === "history") {
+      html += `<div class="story-block history-box">${b.html}</div>`;
+    } else if (b.type === "paragraph") {
+      const idAttr = (isLatest && animateLatest) ? `id="latestTypingNode"` : "";
+      const inner = (isLatest && animateLatest) ? "" : b.text;
+      if (isLatest && animateLatest) latestTypingText = b.text;
+      html += `<div class="story-block narrative-p" ${idAttr}>${inner}</div>`;
+    } else if (b.type === "dialogue") {
+      const idAttr = (isLatest && animateLatest) ? `id="latestTypingNode"` : "";
+      const inner = (isLatest && animateLatest) ? "" : b.words;
+      if (isLatest && animateLatest) latestTypingText = b.words;
       html += `
-        <div class="dialogue-card ${d.side}">
+        <div class="story-block dialogue-card ${b.side}">
           <div class="speaker-name">
-            <span>${d.speaker}</span>
-            <span class="speaker-desc">${d.desc}</span>
+            <span>${b.speaker}</span>
+            <span class="speaker-desc">${b.desc}</span>
           </div>
-          <div class="speaker-words">${d.words}</div>
+          <div class="speaker-words" ${idAttr}>${inner}</div>
         </div>
       `;
-    });
-    html += `</div>`;
+    } else if (b.type === "choices") {
+      html += `<div class="story-block choices-section" onclick="event.stopPropagation()">`;
+      if (b.prompt) {
+        html += `<div class="choices-prompt">${b.prompt}</div>`;
+      }
+      b.choices.forEach((c, idx) => {
+        if (c.onlyIfFlag && !gameState.flags[c.onlyIfFlag]) {
+          return;
+        }
+        let extraTag = "";
+        if (c.requireFlag && gameState.flags[c.requireFlag]) {
+          extraTag = ` <span class="badge-pill">已达成伦敦艺展前置</span>`;
+        }
+        html += `
+          <button class="choice-btn" onclick="chooseOption(${idx}, event)">
+            <span class="choice-tag">${c.tag}</span>${c.text}${extraTag}
+            <span class="choice-sub">${c.sub || ""}</span>
+          </button>
+        `;
+      });
+      html += `</div>`;
+    }
   }
 
-  if (scene.choices && scene.choices.length) {
-    html += `<div class="choices-section">`;
-    if (scene.prompt) {
-      html += `<div class="choices-prompt">${scene.prompt}</div>`;
+  html += `</div>`;
+
+  // 如果还没展示到最后一个block（选项），显示“点击继续下一段”引导条
+  if (gameState.revealIndex < totalBlocks) {
+    const nextBlock = blocks[gameState.revealIndex];
+    let nextLabel = "点击继续下一段剧情";
+    if (nextBlock.type === "dialogue") {
+      nextLabel = `点击倾听【${nextBlock.speaker}】发言`;
+    } else if (nextBlock.type === "choices") {
+      nextLabel = "点击展开【历史抉择选项】";
+    } else if (nextBlock.type === "paragraph") {
+      nextLabel = "点击继续翻阅档案叙述";
     }
-    scene.choices.forEach((c, idx) => {
-      if (c.onlyIfFlag && !gameState.flags[c.onlyIfFlag]) {
-        return;
-      }
-      let extraTag = "";
-      if (c.requireFlag && gameState.flags[c.requireFlag]) {
-        extraTag = ` <span class="badge-pill">已达成伦敦艺展前置</span>`;
-      }
-      html += `
-        <button class="choice-btn" onclick="chooseOption(${idx})">
-          <span class="choice-tag">${c.tag}</span>${c.text}${extraTag}
-          <span class="choice-sub">${c.sub || ""}</span>
-        </button>
-      `;
-    });
-    html += `</div>`;
+
+    html += `
+      <div class="next-step-bar" onclick="advanceStep(event)">
+        <div class="next-hint-left">
+          <span>▼ ${nextLabel}（${gameState.revealIndex}/${totalBlocks}）</span>
+          <span class="next-arrow">▸</span>
+        </div>
+        <button class="skip-scene-btn" onclick="revealAllInScene(event)">直接看本幕选项 »</button>
+      </div>
+    `;
   }
 
   stage.innerHTML = html;
-  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (animateLatest && latestTypingText) {
+    const target = document.getElementById("latestTypingNode");
+    if (target) {
+      startTypewriter(target, latestTypingText);
+    }
+  }
 }
 
-window.chooseOption = function(idx) {
+// 推进一段
+window.advanceStep = function(e) {
+  if (e) e.stopPropagation();
+
+  // 如果当前段落还在打字机逐字显现中，第一次点击先瞬间补全当前段文字
+  if (isTyping) {
+    stopTypingImmediately();
+    return;
+  }
+
+  const scene = SCENES[gameState.currentScene] || SCENES.act1_main;
+  const totalBlocks = scene.isEnding ? (scene.paragraphs.length + 1) : getSceneBlocks(scene).length;
+
+  if (gameState.revealIndex < totalBlocks) {
+    gameState.revealIndex += 1;
+    saveState();
+    renderScene(true);
+    // 平滑滚动到底部新出现的内容
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }, 60);
+  }
+};
+
+// 一键展开本幕全部段落与选项
+window.revealAllInScene = function(e) {
+  if (e) e.stopPropagation();
+  stopTypingImmediately();
+  const scene = SCENES[gameState.currentScene] || SCENES.act1_main;
+  const totalBlocks = scene.isEnding ? (scene.paragraphs.length + 1) : getSceneBlocks(scene).length;
+  gameState.revealIndex = totalBlocks;
+  saveState();
+  renderScene(false);
+  setTimeout(() => {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }, 60);
+};
+
+window.chooseOption = function(idx, e) {
+  if (e) e.stopPropagation();
+  stopTypingImmediately();
   const scene = SCENES[gameState.currentScene];
   if (!scene || !scene.choices || !scene.choices[idx]) return;
   const choice = scene.choices[idx];
+
+  // 记录历史栈方便回退上一幕
+  if (!gameState.historyStack) gameState.historyStack = [];
+  gameState.historyStack.push({
+    scene: gameState.currentScene,
+    badges: [...gameState.badges],
+    flags: Object.assign({}, gameState.flags)
+  });
 
   if (choice.addBadge && !gameState.badges.includes(choice.addBadge)) {
     gameState.badges.push(choice.addBadge);
@@ -1142,19 +1474,41 @@ window.chooseOption = function(idx) {
     gameState.flags[choice.setFlag] = true;
   }
   gameState.currentScene = choice.next;
+  gameState.revealIndex = 1; // 新的一幕从第1段开始显现
   saveState();
-  renderScene();
+  renderScene(true);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-window.restartGame = function() {
+window.goBackScene = function(e) {
+  if (e) e.stopPropagation();
+  if (!gameState.historyStack || gameState.historyStack.length === 0) return;
+  const prev = gameState.historyStack.pop();
+  gameState.currentScene = prev.scene;
+  gameState.badges = prev.badges;
+  gameState.flags = prev.flags;
+  const scene = SCENES[gameState.currentScene] || SCENES.act1_main;
+  gameState.revealIndex = getSceneBlocks(scene).length; // 退回上一幕直接停在抉择处
+  saveState();
+  renderScene(false);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+window.restartGame = function(e) {
+  if (e) e.stopPropagation();
+  stopTypingImmediately();
   gameState.currentScene = "act1_main";
+  gameState.revealIndex = 1;
   gameState.badges = ["文渊阁四库清册"];
   gameState.flags = {};
+  gameState.historyStack = [];
   saveState();
-  renderScene();
+  renderScene(true);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-window.openArchiveModal = function() {
+window.openArchiveModal = function(e) {
+  if (e) e.stopPropagation();
   const grid = document.getElementById("endingGrid");
   grid.innerHTML = Object.keys(ENDINGS_META).map(key => {
     const item = ENDINGS_META[key];
@@ -1169,6 +1523,26 @@ window.openArchiveModal = function() {
   document.getElementById("archiveModal").classList.add("open");
 };
 
+// 点击舞台空白处同样触发推进下一段
+document.getElementById("stageBody").addEventListener("click", (e) => {
+  if (e.target.closest("button") || e.target.closest(".choices-section")) return;
+  window.advanceStep(e);
+});
+
+// 支持按空格键或回车键推进剧情
+document.addEventListener("keydown", (e) => {
+  if (document.getElementById("archiveModal").classList.contains("open")) return;
+  if (e.code === "Space" || e.code === "Enter") {
+    const scene = SCENES[gameState.currentScene] || SCENES.act1_main;
+    const totalBlocks = scene.isEnding ? (scene.paragraphs.length + 1) : getSceneBlocks(scene).length;
+    if (gameState.revealIndex < totalBlocks || isTyping) {
+      e.preventDefault();
+      window.advanceStep(e);
+    }
+  }
+});
+
+document.getElementById("btnBackStep").addEventListener("click", window.goBackScene);
 document.getElementById("btnArchive").addEventListener("click", window.openArchiveModal);
 document.getElementById("btnRestart").addEventListener("click", window.restartGame);
 document.getElementById("btnCloseModal").addEventListener("click", () => {
@@ -1176,7 +1550,7 @@ document.getElementById("btnCloseModal").addEventListener("click", () => {
 });
 
 loadSavedState().then(() => {
-  renderScene();
+  renderScene(true);
 });
 </script>
 </body>
