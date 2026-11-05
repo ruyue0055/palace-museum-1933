@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>档案里的故宫南迁：万里典守录（1933—1949）</title>
+<style>
+  :root {
+    --bg-dark: #14100e;
+    --bg-panel: #1f1916;
+    --paper: #f3ead8;
+    --paper-dark: #e5d7be;
+    --palace-red: #8c221c;
+    --palace-red-light: #b3362f;
+    --gold: #c59b52;
+    --gold-light: #e2be7d;
+    --ink: #261e19;
+    --ink-muted: #5c4e43;
+    --text-light: #f5ece0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(140, 34, 28, 0.18) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(197, 155, 82, 0.12) 0%, transparent 50%);
+    color: var(--ink);
+    font-family: "Songti SC", "STSong", "SimSun", "Noto Serif SC", serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 12px 40px;
+    line-height: 1.75;
+  }
+
+  .app-container {
+    width: 100%;
+    max-width: 780px;
+    background: var(--paper);
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(229,215,190,0.4) 100%);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65), inset 0 0 32px rgba(139, 98, 52, 0.15);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .top-header {
+    background: linear-gradient(90deg, #5e1410 0%, var(--palace-red) 50%, #5e1410 100%);
+    color: var(--text-light);
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--gold);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .title-group h1 {
+    font-size: 1.25rem;
+    letter-spacing: 1.5px;
+    color: #faeed7;
+    font-weight: 700;
+  }
+
+  .title-group p {
+    font-size: 0.78rem;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-top {
+    background: rgba(20, 16, 14, 0.45);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 5px 11px;
+    font-size: 0.78rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .btn-top:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .status-bar {
+    background: var(--paper-dark);
+    border-bottom: 1px dashed rgba(92, 78, 67, 0.4);
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    font-size: 0.84rem;
+    color: var(--ink-muted);
+    align-items: center;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-label {
+    font-weight: 700;
+    color: var(--palace-red);
+  }
+
+  .badge-pill {
+    display: inline-block;
+    background: rgba(140, 34, 28, 0.12);
+    border: 1px solid var(--palace-red);
+    color: var(--palace-red);
+    font-size: 0.75rem;
+    padding: 1px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+    font-weight: 600;
+  }
+
+  .route-progress {
+    background: #ebe0cb;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(197, 155, 82, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    overflow-x: auto;
+  }
+
+  .step-node {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #8c7b6b;
+    white-space: nowrap;
+  }
+
+  .step-node.active {
+    color: var(--palace-red);
+    font-weight: 700;
+  }
+
+  .step-node.done {
+    color: var(--ink);
+  }
+
+  .step-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #bfb09c;
+    display: inline-block;
+  }
+
+  .step-node.active .step-dot {
+    background: var(--palace-red);
+    box-shadow: 0 0 0 3px rgba(140, 34, 28, 0.25);
+  }
+
+  .step-node.done .step-dot {
+    background: var(--gold);
+  }
+
+  .step-line {
+    flex: 1;
+    height: 1px;
+    background: #cbbba4;
+    margin: 0 8px;
+    min-width: 16px;
+  }
+
+  .stage-body {
+    padding: 26px 24px 30px;
+  }
+
+  .act-tag {
+    display: inline-block;
+    background: var(--palace-red);
+    color: #fff;
+    padding: 3px 12px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+
+  .scene-title {
+    font-size: 1.45rem;
+    color: var(--ink);
+    margin-bottom: 14px;
+    border-left: 4px solid var(--palace-red);
+    padding-left: 12px;
+    line-height: 1.35;
+  }
+
+  .history-box {
+    background: rgba(229, 215, 190, 0.65);
+    border: 1px solid #cbb99e;
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    color: #3d3128;
+    margin-bottom: 18px;
+  }
+
+  .history-box strong {
+    color: var(--palace-red);
+  }
+
+  .narrative-text {
+    font-size: 1.02rem;
+    color: var(--ink);
+    margin-bottom: 18px;
+    text-align: justify;
+  }
+
+  .narrative-text p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+
+  .dialogue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .dialogue-card {
+    background: #faf5eb;
+    border: 1px solid #d8c8b0;
+    border-radius: 6px;
+    padding: 14px 16px;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  .dialogue-card.left-side {
+    border-left: 4px solid var(--palace-red);
+  }
+
+  .dialogue-card.right-side {
+    border-left: 4px solid #3c5a6b;
+  }
+
+  .speaker-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--palace-red);
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .dialogue-card.right-side .speaker-name {
+    color: #2c4a5c;
+  }
+
+  .speaker-desc {
+    font-size: 0.78rem;
+    font-weight: normal;
+    color: var(--ink-muted);
+  }
+
+  .speaker-words {
+    font-size: 0.96rem;
+    color: var(--ink);
+  }
+
+  .pov-banner {
+    background: linear-gradient(90deg, rgba(140, 34, 28, 0.1) 0%, transparent 100%);
+    border-top: 1px solid rgba(140, 34, 28, 0.3);
+    border-bottom: 1px solid rgba(140, 34, 28, 0.3);
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    color: var(--palace-red);
+    font-size: 0.92rem;
+    letter-spacing: 0.5px;
+  }
+
+  .choices-section {
+    margin-top: 24px;
+    border-top: 1px dashed #c4b299;
+    padding-top: 18px;
+  }
+
+  .choices-prompt {
+    font-weight: 700;
+    color: var(--palace-red);
+    margin-bottom: 12px;
+    font-size: 0.98rem;
+  }
+
+  .choice-btn {
+    width: 100%;
+    text-align: left;
+    background: #fcf8f0;
+    border: 1.5px solid #bfa888;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.96rem;
+    color: var(--ink);
+    transition: all 0.22s ease;
+    position: relative;
+    display: block;
+  }
+
+  .choice-btn:hover {
+    background: #fffdf9;
+    border-color: var(--palace-red);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(140, 34, 28, 0.14);
+  }
+
+  .choice-btn .choice-tag {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--palace-red);
+    margin-right: 6px;
+  }
+
+  .choice-btn .choice-sub {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .ending-card {
+    background: linear-gradient(145deg, #fbf4e6 0%, #efe1c6 100%);
+    border: 2px double var(--palace-red);
+    border-radius: 8px;
+    padding: 24px 20px;
+    margin-top: 16px;
+    position: relative;
+    text-align: center;
+  }
+
+  .ending-seal {
+    display: inline-block;
+    border: 2px solid var(--palace-red);
+    color: var(--palace-red);
+    padding: 4px 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    background: rgba(140, 34, 28, 0.06);
+  }
+
+  .ending-title {
+    font-size: 1.55rem;
+    color: var(--palace-red);
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  .ending-body {
+    text-align: justify;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .modal-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    z-index: 999;
+  }
+
+  .modal-mask.open {
+    display: flex;
+  }
+
+  .modal-box {
+    background: var(--paper);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 22px;
+    color: var(--ink);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #cbb99e;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+
+  .modal-header h3 {
+    color: var(--palace-red);
+    font-size: 1.15rem;
+  }
+
+  .ending-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .ending-item {
+    border: 1px solid #cbb99e;
+    background: #faf5eb;
+    padding: 12px 14px;
+    border-radius: 6px;
+  }
+
+  .ending-item.locked {
+    opacity: 0.6;
+    background: #e9decb;
+  }
+
+  .ending-item h4 {
+    color: var(--palace-red);
+    font-size: 0.96rem;
+    margin-bottom: 4px;
+  }
+
+  .ending-item p {
+    font-size: 0.83rem;
+    color: var(--ink-muted);
+  }
+
+  .footer-note {
+    text-align: center;
+    padding: 12px;
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+    border-top: 1px solid rgba(197, 155, 82, 0.3);
+    background: #ebe0cb;
+  }
+
+  @media (max-width: 600px) {
+    .stage-body {
+      padding: 18px 15px 24px;
+    }
+    .scene-title {
+      font-size: 1.22rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <header class="top-header">
+    <div class="title-group">
+      <h1>档案里的故宫南迁：万里典守录</h1>
+      <p>1933—1949 · 第一人称历史亲历 · 多分支互动文游</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-top" id="btnArchive">典守结局录 (<span id="unlockCount">0</span>/5)</button>
+      <button class="btn-top" id="btnRestart">重返1933</button>
+    </div>
+  </header>
+
+  <div class="status-bar">
+    <div class="status-item">
+      <span class="status-label">纪年：</span>
+      <span id="uiTime">1933年1月</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">方位：</span>
+      <span id="uiLocation">北平 · 紫禁城太和殿广场</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">当前视角：</span>
+      <span id="uiPov">青年典守员</span>
+    </div>
+    <div class="status-item" id="badgeContainer">
+      <span class="status-label">随身卷宗：</span>
+      <span id="uiBadges"><span class="badge-pill">文渊阁四库清册</span></span>
+    </div>
+  </div>
+
+  <div class="route-progress" id="progressBar">
+    <div class="step-node active" data-step="1"><span class="step-dot"></span>一幕·古都去留</div>
+    <div class="step-line"></div>
+    <div class="step-node" data-step="2"><span class="step-dot"></span>二幕·沪上清册与英伦</div>
+    <div class="step-line"></div>
+    <div class="step-node" data-step="3"><span class="step-dot"></span>三幕·三路西迁生死线</div>
+    <div class="step-line"></div>
+    <div class="step-node" data-step="4"><span class="step-dot"></span>四幕·胜利东归与终局</div>
+  </div>
+
+  <main class="stage-body" id="stageBody"></main>
+
+  <footer class="footer-note">
+    史料依据：故宫博物院官网《故宫文物南迁史料展》专题 & 《文物西迁》官方词条 · 余砚为月月制作
+  </footer>
+</div>
+
+<div class="modal-mask" id="archiveModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>《万里典守录》五重历史结局图鉴</h3>
+      <button class="btn-top" id="btnCloseModal" style="color:#261e19;border-color:#8c221c;">关闭卷宗</button>
+    </div>
+    <div class="ending-grid" id="endingGrid"></div>
+  </div>
+</div>
+
+<script>
+const ENDINGS_META = {
+  ending1: {
+    code: "结局一 · 史实主线结局",
+    title: "【万里北返 · 紫禁重光】",
+    hint: "在第四幕选择响应马衡院长嘱托留守南京，护送11178箱文物北返故宫。"
+  },
+  ending2: {
+    code: "结局二 · 两岸守望结局",
+    title: "【隔海守望 · 一脉双城】",
+    hint: "在第四幕选择随庄尚严、那志良登船押运三批精品文物赴台。"
+  },
+  ending3: {
+    code: "结局三 · 国际传播结局",
+    title: "【播扬四海 · 文明回响】",
+    hint: "在第二幕曾远赴伦敦艺展点亮【播扬在徙途】成就，并于终局投身中外文化交流。"
+  },
+  ending4: {
+    code: "结局四 · 留平隐藏结局",
+    title: "【留守故都 · 孤城守望】",
+    hint: "在第一幕选择留守1933年的北平紫禁城，在沦陷区死守故宫古物。"
+  },
+  ending5: {
+    code: "结局五 · 悲壮纪念结局",
+    title: "【川江忠魂 · 浩气长存】",
+    hint: "在第三幕踏上中路线，致敬南迁护宝献身第一人朱学侃。"
+  }
+};
+
+const SCENES = {
+  act1_main: {
+    step: 1,
+    actTag: "第一幕 · 古都惊雷",
+    title: "去留大论战（1932年冬—1933年2月5日 · 北平）",
+    time: "1933年1月",
+    location: "北平 · 紫禁城午门与太和殿",
+    pov: "故宫博物院年轻典守员",
+    history: "<strong>【历史档案背景】</strong>1933年1月，日军攻陷山海关（榆关），华北危如累卵。紫禁城内寒风呼啸，太和殿广场与午门内堆满了连夜用绵纸、稻草和铁皮箍紧的2118只大木箱。然而宫墙之外，整个北平城却因“故宫文物到底该不该南迁”掀起了一场惊天风暴。",
+    paragraphs: [
+      "你是故宫博物院的一名年轻典守员，手里捧着刚封好箱的《文渊阁四库全书》与宋元善本清册。就在今晚，院里爆发了建院以来最激烈的一次争执——一方是以院长易培基为首的“主迁派”，另一方则是以原古物陈列所所长周肇祥及众多北平学者名流为首的“反迁留平派”。"
+    ],
+    dialogues: [
+      {
+        side: "left-side",
+        speaker: "易培基",
+        desc: "手按《呈行政院南迁文底稿》，脸色苍白却目光如炬",
+        words: "“1860年英法联军火烧圆明园，1900年八国联军洗劫紫禁城！如今日寇兵临山海关，倘若北平有失，这几千年攒下的近百万件国宝，难道要留着给侵略者当战利品吗？哪怕背上千古骂名，哪怕被人构陷盗宝，这批箱子也必须南下！”"
+      },
+      {
+        side: "right-side",
+        speaker: "周肇祥",
+        desc: "手持《北平民众保护古物协会》传单，拍案怒喝",
+        words: "“古物乃故都之魂！文物一走，人心必散，北平便成了一座等死的空城！连周树人（鲁迅）先生都写诗斥责‘寂寞空城在，仓皇古董迁’！我已联合工联车夫罢工，谁敢把祖宗基业运出午门，我们就横卧在铁轨上以死相拼！”"
+      }
+    ],
+    prompt: "【第一幕抉择：在大人物的去留争锋中，你选择支持谁并进入谁的视角？】",
+    choices: [
+      {
+        tag: "选项 A",
+        text: "支持院长易培基——“宁作护宝流民，不作亡国守墓人”",
+        sub: "切入【易培基视角】，执行1933年2月5日深夜秘密启运",
+        next: "act1_yi_pov"
+      },
+      {
+        tag: "选项 B",
+        text: "同情周肇祥与北平名流——“古物与故都共存亡”",
+        sub: "切入【周肇祥/留平派视角】，探查反对派的真实隐忧",
+        next: "act1_zhou_pov"
+      }
+    ]
+  },
+
+  act1_yi_pov: {
+    step: 1,
+    actTag: "第一幕 · 视角切入",
+    title: "午门寒夜的秘密启运",
+    time: "1933年2月5日夜",
+    location: "北平 · 午门城楼至正阳门火车西站",
+    pov: "易培基院长 POV",
+    povBanner: "切换视角 · 易培基 POV（1933年2月5日夜·午门）",
+    paragraphs: [
+      "夜色如墨，北平全城临时戒严。你站在寒风凛冽的午门城楼下，听着外面街道上传来的反对派口号声，心如刀割。",
+      "为了避开被煽动罢工的脚夫，你不得不秘密请求军警进驻监盘，调来数十辆板车与排子车。看着第一批2118箱文物在刺刀与火把的护卫下悄悄驶向正阳门火车西站，你心里清楚，这一走，等待你的或许是政敌借“易培基盗宝案”泼来的无尽脏水，但只要国宝能平安抵达上海，你这身清誉又算得了什么。"
+    ],
+    prompt: "【分支走向：专列汽笛长鸣，万里南迁正式启程】",
+    choices: [
+      {
+        tag: "登车南下",
+        text: "随第一批押运专列由平汉路转陇海路、津浦路，护送13000余箱文物奔赴上海",
+        sub: "获得印记【午门护宝人】 → 进入第二幕·孤岛清册与英伦远航",
+        addBadge: "午门护宝人",
+        next: "act2_main"
+      }
+    ]
+  },
+
+  act1_zhou_pov: {
+    step: 1,
+    actTag: "第一幕 · 视角切入",
+    title: "中南海集会堂的悲歌与孤勇",
+    time: "1933年1月—5月",
+    location: "北平 · 中南海集会堂与故宫留守处",
+    pov: "周肇祥与北平文化界 POV",
+    povBanner: "切换视角 · 周肇祥与北平文化界 POV（1933年1月·中南海）",
+    paragraphs: [
+      "你走进中南海集会堂，满屋子都是悲愤交加的北平市民与学者。在他们眼中，连故宫的古董都仓皇逃跑了，意味着政府已经准备放弃华北、放弃北平百姓。",
+      "你亲眼看到周肇祥在台上慷慨陈词，也读到了鲁迅先生笔下那句苍凉的“文化一去不复返，古城千载冷清清”。但当夜深人静、前线传来榆关失守的炮声时，你看着留存故宫内未能带走的剩余文物，突然明白了“留守”二字背后同样需要直面刺刀的孤勇。"
+    ],
+    prompt: "【二次微抉择：1933年5月15日第五批文物即将启运，你决定如何抉择？】",
+    choices: [
+      {
+        tag: "抉择 B1",
+        text: "幡然醒悟，赶在5月15日第五批文物启运前登车南下追随大部队",
+        sub: "汇入南迁主线 → 进入第二幕·孤岛清册与英伦远航",
+        addBadge: "末班南迁专列",
+        next: "act2_main"
+      },
+      {
+        tag: "抉择 B2",
+        text: "坚持留守北平故宫，在沦陷区与日伪周旋、死守留平文物",
+        sub: "触发隐藏结局四：【留守故都 · 孤城守望】",
+        next: "ending4"
+      }
+    ]
+  },
+
+  act2_main: {
+    step: 2,
+    actTag: "第二幕 · 孤岛清册与英伦远航",
+    title: "深筑内库还是远渡重洋？（1934—1936年 · 上海至伦敦/南京）",
+    time: "1934年—1936年",
+    location: "上海法租界天主堂街库房",
+    pov: "南迁典守员",
+    history: "<strong>【历史档案背景】</strong>五批共13000余箱故宫及古物陈列所、颐和园、国子监文物抵达上海法租界天主堂街库房。老院长易培基蒙冤辞职，考古学家马衡临危受命接任院长。与此同时，英国方面提议于1935年在伦敦皇家艺术学院举办“中国艺术国际展览会”，院内再次围绕“战乱之中该不该让国宝漂洋过海”产生分歧。",
+    dialogues: [
+      {
+        side: "left-side",
+        speaker: "马衡院长",
+        desc: "手持刚校对完的《存沪文物点查清册》，神色凝重",
+        words: "“一万三千多箱文物堆在上海租界绝非长久之计。我们一面要逐箱点验、编印《存沪文物点查清册》给天下人一个交代，一面要抓紧在南京朝天宫修建钢筋水泥的地下文物库房！”"
+      },
+      {
+        side: "right-side",
+        speaker: "赴外展览筹备委员",
+        desc: "指着远洋海图，语气急切",
+        words: "“可是马院长，如今国际社会对远东战局态度暧昧！若能从南迁文物中精选735件绝世珍品乘坐英国军舰远赴伦敦与苏联展出，让西方民众亲眼看见中华五千年文明之璀璨，定能为我国抗战赢得全世界的同情与同盟国支持！”"
+      }
+    ],
+    prompt: "【第二幕抉择：面对“深筑内库”与“远渡重洋播扬文化”，你的选择是？】",
+    choices: [
+      {
+        tag: "选项 A",
+        text: "追随马衡院长——彻夜编纂《存沪文物点查清册》并迁入南京朝天宫",
+        sub: "切入【马衡视角】，获得核心道具《存沪文物点查清册》",
+        next: "act2_ma_pov"
+      },
+      {
+        tag: "选项 B",
+        text: "请缨加入海外护展团——随英国“萨福克号”巡洋舰护送735件国宝赴伦敦",
+        sub: "切入【驻外护宝专员庄尚严/那志良视角】，解锁国际传播支线",
+        next: "act2_london_pov"
+      }
+    ]
+  },
+
+  act2_ma_pov: {
+    step: 2,
+    actTag: "第二幕 · 视角切入",
+    title: "铁规点查与朝天宫地库",
+    time: "1936年8月—12月",
+    location: "上海库房 → 南京朝天宫库房",
+    pov: "马衡院长 POV",
+    povBanner: "切换视角 · 马衡院长 POV（上海库房—南京朝天宫）",
+    paragraphs: [
+      "流言蜚语仍在蔓延，外界常有人怀疑南迁途中是否有官员中饱私囊。你在闷热的上海库房里立下铁规：凡开箱点查，必须多人同时在场，一器一物皆核对原号，最终编印成厚达数卷的《存沪文物点查清册》，让所有谣言不攻自破。",
+      "1936年8月，南京朝天宫库房竣工，你指挥同人在12月8日至21日间分5批将全部存沪文物安全移入朝天宫。你原以为国宝终于有了一座坚固的家，却不知八个月后，更大的战火即将烧到南京城下。"
+    ],
+    prompt: "【分支走向：获得核心道具《存沪文物点查清册》】",
+    choices: [
+      {
+        tag: "奔赴南京",
+        text: "将全部文物安顿于南京朝天宫钢筋水泥地库，严阵以待",
+        sub: "获得道具【存沪文物点查清册】 → 进入第三幕·1937南京三路西迁大抉择",
+        addBadge: "存沪文物点查清册",
+        next: "act3_main"
+      }
+    ]
+  },
+
+  act2_london_pov: {
+    step: 2,
+    actTag: "第二幕 · 视角切入",
+    title: "萨福克号远航与伦敦皇家艺术学院盛况",
+    time: "1935年冬—1936年夏",
+    location: "英国伦敦 · 皇家艺术学院展厅",
+    pov: "驻外护宝专员 庄尚严/那志良 POV",
+    povBanner: "切换视角 · 伦敦艺展护送专员 POV（1935年·英国伦敦）",
+    paragraphs: [
+      "1935年冬，伦敦皇家艺术学院门前排起了长龙。当你在开箱仪式上亲手揭开嘉庆青玉执壶、康熙画珐琅莲花纹盖碗与商周青铜重器的锦袱时，整个欧洲文化界为之震撼。",
+      "长达数月的展期里，超过四十万外国民众涌入展厅，伦敦报纸连篇累牍地赞叹：“一个拥有如此伟大文明的民族，绝不会被侵略者征服！”你在异国他乡的掌声里热泪盈眶——原来文物不仅是需要被保护的遗物，更是为家国争取国际道义的无声战士。"
+    ],
+    prompt: "【分支走向：点亮特殊成就“播扬在徙途·国际声援”】",
+    choices: [
+      {
+        tag: "载誉归国",
+        text: "1936年夏随展品平安归国，并移入南京朝天宫库房",
+        sub: "点亮成就【播扬在徙途·国际声援】（解锁结局三前置条件） → 进入第三幕",
+        addBadge: "播扬在徙途·国际声援",
+        setFlag: "londonVisited",
+        next: "act3_main"
+      }
+    ]
+  },
+
+  act3_main: {
+    step: 3,
+    actTag: "第三幕 · 南京陷落前夜",
+    title: "南中北三路西迁生死线（1937年8月—1939年）",
+    time: "1937年8月—11月",
+    location: "南京 · 朝天宫库房与下关码头",
+    pov: "故宫西迁押运领队",
+    history: "<strong>【历史档案背景】</strong>1937年七七事变与上海八一三事变相继爆发，日军飞机昼夜狂轰南京，刚建好不到一年的朝天宫库房危在旦夕！奉紧急命令，存京文物必须立刻分南路、中路、西路（北路）三条路线向西南大后方疏散。三位路线领队同时向你伸出援手，你选择踏上哪一条路，将直接决定你未来八年的命运！",
+    paragraphs: [
+      "防空警报凄厉地划破金陵夜空，朝天宫外火光冲天。一万多箱国宝必须赶在南京陷落前抢运出城。江轮、火车与渡口均已进入战时紧急管制，三路押运专员正等待你的加入。"
+    ],
+    prompt: "【第三幕核心路线抉择：1937年南京大撤退，你决定押运哪一路文物？】",
+    choices: [
+      {
+        tag: "路线一（南路线）",
+        text: "1937年8月14日启程：南京 → 汉口 → 长沙岳麓山 → 贵阳安顺华严洞 → 四川巴县",
+        sub: "护送80箱甲级国宝，亲历长沙大火前夜与黔南事变溶洞绝境抢运",
+        addBadge: "南路·华严洞典守人",
+        next: "act3_south"
+      },
+      {
+        tag: "路线二（中路线）",
+        text: "1937年11月启程：南京 → 汉口 → 宜昌 → 三峡逆流至重庆 → 乐山安谷乡",
+        sub: "护送九千余箱文物溯江而上，亲历川江纤夫号子与朱学侃喋血船舱",
+        addBadge: "中路·川江押运人",
+        next: "act3_middle"
+      },
+      {
+        tag: "路线三（西路/北路）",
+        text: "1937年11月启程：南京 → 徐州 → 宝鸡 → 翻越秦岭至汉中 → 成都 → 峨嵋",
+        sub: "踏上最艰险悲壮的秦岭风雪汽车抢运线，亲历秦岭断桥与汉中大轰炸",
+        addBadge: "西路·秦岭风雪押运人",
+        next: "act3_west"
+      }
+    ]
+  },
+
+  act3_south: {
+    step: 3,
+    actTag: "第三幕 · 南路亲历视角",
+    title: "80箱甲级国宝的溶洞岁月",
+    time: "1937年8月—1944年冬",
+    location: "长沙岳麓山 → 贵州安顺华严洞 → 四川巴县",
+    pov: "南路押运专员 POV",
+    povBanner: "南路亲历视角 · 80箱甲级国宝的溶洞岁月",
+    paragraphs: [
+      "你随第一批80箱最珍贵的甲级文物于8月14日乘江轮溯江而上，16日抵汉口后转火车运抵湖南长沙，暂存于岳麓山湖南大学图书馆。然而仅过数月，长沙危急！你们在1938年初冒着寒冬将文物抢运入黔，几经周折藏进贵阳安顺县城外的天然溶洞“华严洞”中（后仅仅数月，湖南大学图书馆便在战火中被炸毁）。",
+      "在潮湿幽暗的贵州深山里，你们伴着桐油灯火办起驻安顺办事处，一守就是六年。直到1944年秋冬，日军攻陷桂林、柳州，先头部队直逼贵阳独山！一旦贵阳失守，安顺与陪都重庆的联络将彻底切断。千钧一发之际，你与同事拦截求助过境军车，在漫天烽火中将80箱国宝抢运入川，最终平安存入四川巴县飞仙岩！"
+    ],
+    prompt: "【南路走向：绝境逢生，八十箱甲级国宝寸宝未损】",
+    choices: [
+      {
+        tag: "迎来曙光",
+        text: "坚守巴县飞仙岩直至1945年抗战胜利，前往重庆集中",
+        sub: "顺利进入第四幕 · 1946重庆集中与终局抉择",
+        next: "act4_main"
+      }
+    ]
+  },
+
+  act3_middle: {
+    step: 3,
+    actTag: "第三幕 · 中路亲历视角",
+    title: "川江纤夫号子与朱学侃的喋血船舱",
+    time: "1937年11月—1939年春",
+    location: "宜昌三峡 → 重庆 → 乐山安谷乡江面",
+    pov: "中路押运专员 POV",
+    povBanner: "中路亲历视角 · 川江纤夫号子与朱学侃的喋血船舱",
+    paragraphs: [
+      "1937年11月南京沦陷前夕，你护送九千余箱文物抢搭轮船撤往汉口，12月再转宜昌，换乘川江小木船逆三峡激流而上运抵重庆。然而重庆雾雨连绵且日机轰炸不断，1939年春，你们决定将文物再迁往四川乐山安谷乡的古佛寺保存。",
+      "就在重庆向乐山装船转运的江边，32岁的同事朱学侃为了察看底舱舱位大小、好让文物箱摆放得更稳妥，不慎在昏暗中失足跌入未盖的深舱口内，头部重伤，当场鲜血染红了木箱！他是故宫文物南迁途中第一位为护送国宝献出年轻生命的同人。"
+    ],
+    prompt: "【路线内紧急微抉择：看着朱学侃倒下的舱口与江面逼近的敌机轰鸣，你选择？】",
+    choices: [
+      {
+        tag: "中路 A",
+        text: "强忍悲痛接替朱学侃守在底舱，组织川江纤夫拉纤逆流冲过险滩抵达乐山安谷",
+        sub: "带着同人遗志守住九千箱国宝 → 进入第四幕（并记入川江忠魂纪念支线）",
+        setFlag: "zhuMemorial",
+        next: "act4_main"
+      },
+      {
+        tag: "中路 B",
+        text: "亲自攀上船头指挥引开敌机视线，在江滩轰炸中以身护箱",
+        sub: "触发悲壮结局五：【川江忠魂 · 浩气长存】",
+        next: "ending5"
+      }
+    ]
+  },
+
+  act3_west: {
+    step: 3,
+    actTag: "第三幕 · 西路亲历视角",
+    title: "最困难、最悲壮的秦岭风雪汽车抢运",
+    time: "1937年11月—1939年7月",
+    location: "徐州 → 宝鸡 → 秦岭险道 → 汉中 → 峨嵋大佛寺",
+    pov: "西路押运专员 POV",
+    povBanner: "西路亲历视角 · 最困难、最悲壮的秦岭风雪汽车抢运",
+    paragraphs: [
+      "你踏上了故宫西迁史上公认最艰险、最悲壮的一条路。1937年11月，你们从南京渡江北上徐州，冒着日军沿途轰炸转陇海线抵达陕西宝鸡。1938年4月潼关告急，七千多箱文物只能靠三百多辆汽车翻越终年积雪的秦岭险道迁往汉中！",
+      "山路被暴雨冲毁路基，过河无桥，卡车在万丈悬崖边打滑，你和押运员们把棉被垫在车轮下、用肩膀顶着铁皮箱一步步挪过鬼门关。谁知刚到汉中不久，日机又狂轰汉中机场！你们未及喘息，在1939年2月再次冒死将文物抢运至成都，并于同年7月转存四川峨嵋县大佛寺与武庙，成立峨嵋办事处。"
+    ],
+    prompt: "【西路走向：越秦岭、渡蜀道，七千箱国宝安然落脚峨嵋】",
+    choices: [
+      {
+        tag: "蜀道守望",
+        text: "在峨嵋大佛寺与武庙日夜巡防，直至1945年抗战胜利",
+        sub: "顺利进入第四幕 · 1946重庆集中与终局抉择",
+        next: "act4_main"
+      }
+    ]
+  },
+
+  act4_main: {
+    step: 4,
+    actTag: "第四幕 · 胜利东归与两岸分合",
+    title: "1948下关码头的终局抉择（1945—1958年）",
+    time: "1945年8月—1948年12月",
+    location: "重庆海棠溪 → 南京朝天宫与下关码头",
+    pov: "两鬓添霜的资深典守员",
+    history: "<strong>【历史档案背景】</strong>1945年8月15日，日本宣布无条件投降！1946年1月至1947年3月，分存于四川巴县、乐山、峨眉三处的文物全部集中于重庆南岸海棠溪向家坡仓库，并于1947年底全部平安东归南京朝天宫库房——耗时十余载、行程数万里，南迁文物竟创造了近乎零损毁的旷世奇迹！",
+    paragraphs: [
+      "然而到了1948年冬，时代洪流再次奔涌。理事长翁文灏与王世杰、朱家骅、杭立武、傅斯年等人在南京翁文灏公馆召开紧急会议，决定挑选精品分三批运往台湾，而院长马衡则极力周旋希望将文物留在大陆北返故宫。",
+      "站在1948年12月的南京下关码头边，两鬓已添白发的你，迎来了人生最后一次抉择——"
+    ],
+    prompt: "【终局抉择：万里典守路的终点，你将走向何方？】",
+    choices: [
+      {
+        tag: "终局抉择 A",
+        text: "响应马衡院长嘱托留守南京，设法延缓装箱，护送11178箱文物北返北京故宫",
+        sub: "通往结局一：【万里北返 · 紫禁重光】",
+        next: "ending1"
+      },
+      {
+        tag: "终局抉择 B",
+        text: "践行“文物去哪，故宫人就守到哪”的诺言，随庄尚严、那志良登船护送文物赴台",
+        sub: "通往结局二：【隔海守望 · 一脉双城】",
+        next: "ending2"
+      },
+      {
+        tag: "终局抉择 C",
+        text: "整理伦敦、莫斯科及西南大后方展览外文档案，致力于向世界传扬万里护宝奇迹",
+        sub: "需第二幕曾赴伦敦参展（若未解锁则仍可阅览国际传播史诗） → 通往结局三：【播扬四海 · 文明回响】",
+        requireFlag: "londonVisited",
+        next: "ending3"
+      },
+      {
+        tag: "终局抉择 D",
+        text: "重返乐山安谷乡古佛寺旧址，为朱学侃及南迁献身同人立碑守望",
+        sub: "通往结局五：【川江忠魂 · 浩气长存】",
+        onlyIfFlag: "zhuMemorial",
+        next: "ending5"
+      }
+    ]
+  },
+
+  ending1: {
+    step: 4,
+    isEnding: true,
+    endingId: "ending1",
+    actTag: "终章档案 · 结局一",
+    seal: "史实主线结局",
+    title: "【万里北返 · 紫禁重光】",
+    time: "1948年冬—1950年代",
+    location: "南京分院 → 北京故宫午门",
+    pov: "花甲之年的典守人",
+    paragraphs: [
+      "1948年冬，你响应马衡院长的暗中嘱托，以清点包装繁复为由尽量延缓装箱进度，将11178箱故宫文物完好地留在了南京分院。",
+      "20世纪50年代，你再次登上北上的火车，沿着当年逃难的铁路线一路向北。当第一批北返木箱重新跨进北京故宫午门的那一刻，距离1933年2月5日那个寒夜已经过去了整整二十余年。你抬手抚过太和殿汉白玉栏杆，当年满头青丝的青年典守员已近花甲，而身后的万里河山与百万国宝，终于安然无恙。"
+    ]
+  },
+
+  ending2: {
+    step: 4,
+    isEnding: true,
+    endingId: "ending2",
+    actTag: "终章档案 · 结局二",
+    seal: "两岸守望结局",
+    title: "【隔海守望 · 一脉双城】",
+    time: "1948年12月—21世纪",
+    location: "南京下关码头 → 基隆港 → 台北外双溪",
+    pov: "渡海护宝典守人",
+    paragraphs: [
+      "1948年12月，本着“文物去哪，故宫人就守到哪”的职责，你随老友庄尚严、那志良登上了开往基隆港的“中鼎轮”。你原以为这只是一次像去长沙、去乐山一样的短暂避险，却没料到这一别便是半生海峡。",
+      "在台北外双溪的库房里，你用余生编写着《故宫三十年之经过》与南迁回忆录。直到八十五年后，北京故宫与台北故宫共同举办“故宫文物南迁史料展”，你们当年亲手贴上的封条与清册跨越海峡再度并肩，向世人诉说着两岸故宫人同根同源的旷世坚守。"
+    ]
+  },
+
+  ending3: {
+    step: 4,
+    isEnding: true,
+    endingId: "ending3",
+    actTag: "终章档案 · 结局三",
+    seal: "国际传播结局",
+    title: "【播扬四海 · 文明回响】",
+    time: "1945年抗战胜利后",
+    location: "南京 · 伦敦 · 全球数字展厅",
+    pov: "中外文化交流史料编纂人",
+    paragraphs: [
+      "亲历过1935年伦敦皇家艺术学院开箱盛况与万里西迁的你，深深懂得“文物不仅要藏之名山，更要传之四海”。抗战胜利后，你受聘整理故宫南迁期间在伦敦、莫斯科及贵阳、重庆、成都等地办展的全部外文档案与影像。",
+      "多年后，当海内外青少年通过多语种数字展厅重温这场人类历史上规模最大、历时最久、行程最长的战时文化遗产保护奇迹时，你在伦敦展览留下的那本中英双语签到册，成为了连接中国与世界的永恒桥梁。"
+    ]
+  },
+
+  ending4: {
+    step: 1,
+    isEnding: true,
+    endingId: "ending4",
+    actTag: "终章档案 · 结局四",
+    seal: "留平隐藏结局",
+    title: "【留守故都 · 孤城守望】",
+    time: "1933年春—1945年秋",
+    location: "北平 · 紫禁城",
+    pov: "北平故宫留守同人",
+    paragraphs: [
+      "1933年春，当五批南迁专列远去后，你留在了寂寥清冷的北平紫禁城。在随后的沦陷岁月里，面对日伪势力的频繁觊觎与强行征集铜器之令，你与留平同人冒着生命危险藏匿清册、以赝品和废铜周旋抵制，在刺刀下死死护住了留在故宫内的数十万件古籍与器物。",
+      "南迁者行万里路于烽火，留守者守孤城于暗夜，当1945年北平重光之日到来，你站在午门之上迎候南迁同人归来，你们殊途同归，共同铸就了紫禁城的不朽脊梁。"
+    ]
+  },
+
+  ending5: {
+    step: 3,
+    isEnding: true,
+    endingId: "ending5",
+    actTag: "终章档案 · 结局五",
+    seal: "悲壮纪念结局",
+    title: "【川江忠魂 · 浩气长存】",
+    time: "1939年春—千秋岁月",
+    location: "重庆至乐山川江 → 乐山安谷乡古佛寺",
+    pov: "川江护宝忠魂与守碑人",
+    paragraphs: [
+      "嘉陵江与岷江的涛声呜咽千年。在那场由重庆迁往乐山的紧急转运中，年轻的生命永远定格在了装满国宝的船舱里。后来，乐山安谷乡的百姓与故宫同人在古佛寺旁立起纪念碑，每逢清明，总有人将一束白花放在当年存放第19557号木箱的石案上。",
+      "往事并非如烟，档案记下了每一个名字，是你和朱学侃这样的青年以血肉之躯作盾，才换来了中华文脉在战火中的寸宝未损。"
+    ]
+  }
+};
+
+let gameState = {
+  currentScene: "act1_main",
+  badges: ["文渊阁四库清册"],
+  flags: {},
+  unlockedEndings: []
+};
+
+async function loadSavedState() {
+  try {
+    const local = localStorage.getItem("PALACE_SOUTH_MIGRATION_STATE_V1");
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (parsed && parsed.currentScene) {
+        gameState = parsed;
+      }
+    }
+  } catch (e) {
+    console.warn("State load fallback:", e);
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem("PALACE_SOUTH_MIGRATION_STATE_V1", JSON.stringify(gameState));
+  } catch (e) {
+    console.warn("State save warning:", e);
+  }
+}
+
+function renderProgress(step) {
+  const nodes = document.querySelectorAll("#progressBar .step-node");
+  nodes.forEach(node => {
+    const s = parseInt(node.getAttribute("data-step"), 10);
+    node.classList.remove("active", "done");
+    if (s === step) node.classList.add("active");
+    else if (s < step) node.classList.add("done");
+  });
+}
+
+function renderScene() {
+  const scene = SCENES[gameState.currentScene] || SCENES.act1_main;
+
+  if (scene.isEnding && scene.endingId) {
+    if (!gameState.unlockedEndings.includes(scene.endingId)) {
+      gameState.unlockedEndings.push(scene.endingId);
+      saveState();
+    }
+  }
+
+  document.getElementById("uiTime").textContent = scene.time || "";
+  document.getElementById("uiLocation").textContent = scene.location || "";
+  document.getElementById("uiPov").textContent = scene.pov || "";
+  document.getElementById("unlockCount").textContent = gameState.unlockedEndings.length;
+
+  const badgeHtml = gameState.badges.map(b => `<span class="badge-pill">${b}</span>`).join("");
+  document.getElementById("uiBadges").innerHTML = badgeHtml;
+
+  renderProgress(scene.step || 1);
+
+  const stage = document.getElementById("stageBody");
+  let html = `<div class="act-tag">${scene.actTag}</div>`;
+
+  if (scene.isEnding) {
+    html += `
+      <div class="ending-card">
+        <div class="ending-seal">${scene.seal}</div>
+        <h2 class="ending-title">${scene.title}</h2>
+        <div class="ending-body">
+          ${scene.paragraphs.map(p => `<p style="margin-bottom:12px;text-indent:2em;">${p}</p>`).join("")}
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+          <button class="choice-btn" style="max-width:260px;text-align:center;margin:0;" onclick="restartGame()">
+            <span class="choice-tag">再启尘封档案</span>重新踏上1933护宝之路
+          </button>
+          <button class="choice-btn" style="max-width:260px;text-align:center;margin:0;" onclick="openArchiveModal()">
+            <span class="choice-tag">查阅结局全录</span>已点亮 ${gameState.unlockedEndings.length} / 5 个历史结局
+          </button>
+        </div>
+      </div>
+    `;
+    stage.innerHTML = html;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  html += `<h2 class="scene-title">${scene.title}</h2>`;
+
+  if (scene.povBanner) {
+    html += `<div class="pov-banner">${scene.povBanner}</div>`;
+  }
+
+  if (scene.history) {
+    html += `<div class="history-box">${scene.history}</div>`;
+  }
+
+  if (scene.paragraphs && scene.paragraphs.length) {
+    html += `<div class="narrative-text">${scene.paragraphs.map(p => `<p>${p}</p>`).join("")}</div>`;
+  }
+
+  if (scene.dialogues && scene.dialogues.length) {
+    html += `<div class="dialogue-list">`;
+    scene.dialogues.forEach(d => {
+      html += `
+        <div class="dialogue-card ${d.side}">
+          <div class="speaker-name">
+            <span>${d.speaker}</span>
+            <span class="speaker-desc">${d.desc}</span>
+          </div>
+          <div class="speaker-words">${d.words}</div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  if (scene.choices && scene.choices.length) {
+    html += `<div class="choices-section">`;
+    if (scene.prompt) {
+      html += `<div class="choices-prompt">${scene.prompt}</div>`;
+    }
+    scene.choices.forEach((c, idx) => {
+      if (c.onlyIfFlag && !gameState.flags[c.onlyIfFlag]) {
+        return;
+      }
+      let extraTag = "";
+      if (c.requireFlag && gameState.flags[c.requireFlag]) {
+        extraTag = ` <span class="badge-pill">已达成伦敦艺展前置</span>`;
+      }
+      html += `
+        <button class="choice-btn" onclick="chooseOption(${idx})">
+          <span class="choice-tag">${c.tag}</span>${c.text}${extraTag}
+          <span class="choice-sub">${c.sub || ""}</span>
+        </button>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  stage.innerHTML = html;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+window.chooseOption = function(idx) {
+  const scene = SCENES[gameState.currentScene];
+  if (!scene || !scene.choices || !scene.choices[idx]) return;
+  const choice = scene.choices[idx];
+
+  if (choice.addBadge && !gameState.badges.includes(choice.addBadge)) {
+    gameState.badges.push(choice.addBadge);
+  }
+  if (choice.setFlag) {
+    gameState.flags[choice.setFlag] = true;
+  }
+  gameState.currentScene = choice.next;
+  saveState();
+  renderScene();
+};
+
+window.restartGame = function() {
+  gameState.currentScene = "act1_main";
+  gameState.badges = ["文渊阁四库清册"];
+  gameState.flags = {};
+  saveState();
+  renderScene();
+};
+
+window.openArchiveModal = function() {
+  const grid = document.getElementById("endingGrid");
+  grid.innerHTML = Object.keys(ENDINGS_META).map(key => {
+    const item = ENDINGS_META[key];
+    const unlocked = gameState.unlockedEndings.includes(key);
+    return `
+      <div class="ending-item ${unlocked ? "" : "locked"}">
+        <h4>${item.code} · ${item.title} ${unlocked ? "【已典藏】" : "【待解锁】"}</h4>
+        <p>${item.hint}</p>
+      </div>
+    `;
+  }).join("");
+  document.getElementById("archiveModal").classList.add("open");
+};
+
+document.getElementById("btnArchive").addEventListener("click", window.openArchiveModal);
+document.getElementById("btnRestart").addEventListener("click", window.restartGame);
+document.getElementById("btnCloseModal").addEventListener("click", () => {
+  document.getElementById("archiveModal").classList.remove("open");
+});
+
+loadSavedState().then(() => {
+  renderScene();
+});
+</script>
+</body>
+</html>
